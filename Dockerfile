@@ -12,6 +12,19 @@ RUN apt-get update && apt-get install -y \
 # Install utilities
 RUN apt-get install -y curl jq wget git
 
+RUN apt-get install nano
+
+RUN apt-get install -y sudo
+
+# # Create a new user (replace 'coordinator' with your desired username).
+RUN useradd -ms /bin/bash coordinator
+
+# Allow 'coordinator' to run sudo commands without a password.
+RUN echo 'coordinator ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Switch to 'coordinator'.
+USER coordinator
+
 # Set environment variables
 ENV PIP_NO_CACHE_DIR=yes \
     PYTHONUNBUFFERED=1 \
